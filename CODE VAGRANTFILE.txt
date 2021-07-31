@@ -1,0 +1,26 @@
+config.vm.define "nginx" do |nginx|
+	nginx.vm.box = "ubuntu/trusty64"
+	nginx.vm.network "private_network", ip: "10.0.0.10"
+	nginx.provision "shell", path:
+"https://gist.githubusercontent.com/abraunton/263a1796578ebc487af8/raw/7da0dced1083610bf3275a9fae3dca05bf0ae51a/provision-lb.sh"
+end
+
+config.vm.define "web1" do |website1|
+	website1.vm.box = "ubuntu/trusty64"
+	website1.vm.network "private_network", ip: "192.0.0.11"
+	website1.provision :shell do |shell|
+	shell.args = "1"
+	shell.path =
+
+"https://gist.githubusercontent.com/abraunton/1bfbf0aba866baa3b1fa/raw/df07f5001ce7296bc6e663f0fd68cbf5c89b9959/provision-web.sh"
+end
+
+config.vm.define "web2" do |website2|
+	website2.vm.box = "ubuntu/trusty64"
+	website2.vm.network "private_network", ip: "192.0.0.12"
+	website2.provision :shell do |shell|
+	shell.args = "1"
+	shell.path =
+
+"https://gist.githubusercontent.com/abraunton/1bfbf0aba866baa3b1fa/raw/df07f5001ce7296bc6e663f0fd68cbf5c89b9959/provision-web.sh"
+end
